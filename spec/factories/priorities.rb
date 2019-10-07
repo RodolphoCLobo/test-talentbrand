@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :priority do
-    status { "MyString" }
+    status { "high" }
   end
 end
