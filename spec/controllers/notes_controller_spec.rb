@@ -34,6 +34,58 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
+  describe 'GET /notes' do
+    context 'when no have params' do
+      it 'should return all notes.' do
+        user = create(:random_user)
+        priority = create(:priority)
+        for n in (1..3) do
+          note = create(:note, user: user, priority: priority)
+          n += 1
+        end
+        get :index
+        result = JSON.parse(response.body, symbolize_names: true)
+        expect(result.count).to eq(Note.count)
+      end
+    end
+  end
+
+  describe 'GET /notes/:q' do
+    context 'when title from params exists.' do
+      it 'should return only notes with this title.' do
+        q = 'title test'
+        user = create(:random_user)
+        priority = create(:priority)
+        for n in (1..3) do
+          if n == 2
+            create(:note, user: user, priority: priority, title: q)
+          else
+            create(:note, user: user, priority: priority)
+          end
+          n += 1
+        end
+        get :index, params: { q: q }
+        result = JSON.parse(response.body, symbolize_names: true)
+        expect(result.first[:title]).to eq(q)
+        expect(result.count).to eq(1)
+      end
+    end
+    context 'when title from params not exists.' do
+      it 'should return all notes.' do
+        q = 'title test'
+        user = create(:random_user)
+        priority = create(:priority)
+        for n in (1..3) do
+          create(:note, user: user, priority: priority)
+          n += 1
+        end
+        get :index, params: { q: q }
+        result = JSON.parse(response.body, symbolize_names: true)
+        expect(result.count).to eq(Note.count)
+      end
+    end
+  end
+
   describe 'PUT /notes/:id' do
     context 'when params are valid.' do
 

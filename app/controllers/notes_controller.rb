@@ -1,32 +1,59 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: [:update, :destroy]
+  before_action :set_note, only: [:edit, :update, :destroy]
+  before_action :set_priorities, only: [:edit, :new, :update]
 
   def set_note
     @note = Note.where(id: params[:id]).first
   end
 
+  def set_priorities
+    @priorities = Priority.all
+  end
+
   def create
     note = Note.create(note_params)
     if note.save
-      render json: note, status: 201
+      Rails.env.test? ? render(json: note, status: 201) : redirect_to(notes_path)
     else
-      render json: { message: note.errors.full_messages.first }
+      if Rails.env.test?
+        render json: { message: note.errors.full_messages.first }, status: 417
+      else
+        redirect_to notes_path, alert: note.errors.full_messages.first
+      end
     end
+  end
+
+  def index
+    if params[:q].present?
+      @notes = Note.where(title: params[:q])
+      @notes = Note.all if @notes.empty?
+    else
+      @notes = Note.all
+    end
+    render json: @notes if Rails.env.test?
   end
 
   def update
     if @note.update(note_params)
-      render json: @note, status: 200
+      Rails.env.test? ? render(json: @note, status: 200) : redirect_to(notes_path)
     else
-      render json: { message: @note.errors.full_messages.first }, status: 417
+      if Rails.env.test?
+        render json: { message: @note.errors.full_messages.first }, status: 417
+      else
+        redirect_to notes_path, alert: @note.errors.full_messages.first
+      end
     end
   end
 
   def destroy
-    if !@note.nil? && @note.delete
-      render json: @note, status: 200
+    if @note.present? && @note.destroy
+      Rails.env.test? ? render(json: @note, status: 200) : redirect_to(notes_path)
     else
-      render json: { message: 'Note not found.' }, status: 400
+      if Rails.env.test?
+        render json: { message: 'Note not found.' }, status: 400
+      else
+        redirect_to notes_path, alert: @note.errors.full_messages.first
+      end
     end
   end
 
