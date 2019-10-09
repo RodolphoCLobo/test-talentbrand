@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse">
+    <div class="col-4">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Notes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/notes/new">Create Note</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/priorities">Priority</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/priorities/new">Create Priority</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-4">
+      <ul class="navbar-nav mx-auto">
+        <form action="/notes" method="get" class="form-inline my-2 my-lg-0" style="width: 100%;">
+          <li class="nav-item">
+            <div class="form-group">
+              <%= token_tag %>
+            </div>
+          </li>
+          <li class="nav-item" style="width: 100%;">
+            <div class="form-group">
+              <div class="col-8" style="padding: 0;">
+                <input class="form-control mr-sm-2" type="search" name="q" id="q" placeholder="Enter a title" aria-label="Search" style="width: 100%;">
+              </div>
+              <div class="col-4" style="padding: 0;">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width: 100%">Search</button>
+              </div>
+            </div>
+          </li>
+        </form>
+      </ul>
+    </div>
+    <div class="col-4">
+      <ul class="navbar-nav" style="float: right;">
+        <% if current_user.present? %>
+        <li class="nav-item">
+          <span class="nav-link">User: <%= current_user.email %></span>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-danger"href="/users/sign_out">Logout</a>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<br>
