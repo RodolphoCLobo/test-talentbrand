@@ -28,6 +28,16 @@ RSpec.describe PrioritiesController, type: :controller do
     end
   end
 
+  describe 'GET /priorities' do
+    context 'when call to action index.' do
+      it "should return all priorities." do
+        get :index
+        result = JSON.parse(response.body, symbolize_names: true)
+        expect(result.count).to eq(Priority.count)
+      end
+    end
+  end
+
   describe 'PUT /priorities/:id' do
     context 'when params are valid.' do
 
