@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create({email: 'foo@bar.com', password:'password' password_confirmation: 'password'})
+User.create({email: 'foo@bar.com', password:'password', password_confirmation: 'password'})
 ['low' 'medium', 'high'].each { |status| Priority.create(status: status) }
 [
   { user: User.first, priority: Priority.where(status: 'low').first, title: 'Test 1', body: 'This is test 1.' },
