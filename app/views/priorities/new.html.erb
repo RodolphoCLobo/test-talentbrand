@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="card mx-auto mb-3 shadow">
+      <div class="card-header text-center">
+        <h5>New priority</h5>
+      </div>
+      <div class="card-body">
+        <form action="/priorities" method="post">
+          <div class="form-group">
+            <%= token_tag %>
+          </div>
+          <div class="form-group">
+            <label for="status"><h5>Status:</h5></label>
+            <input class="form-control" type="text" name="priority[status]" id="status">
+            <br>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-success" style="width: 100%">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

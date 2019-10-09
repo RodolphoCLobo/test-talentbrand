@@ -7,8 +7,15 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <%= yield %>
+    <div class="nav-container" style="min-height: 20vh;">
+      <%= render "shared/nav" %>
+    </div>
+    <div class="page-container" style="min-height: 70vh;">
+        <%= yield %>
+    </div>
+    <div class="footer-container" style="min-height: 10vh;">
+      <%= render "shared/footer"%>
+    </div>
   </body>
 </html>
