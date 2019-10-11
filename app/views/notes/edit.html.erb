@@ -13,17 +13,17 @@
           </div>
           <div class="form-group">
             <label for="title"><h5>Title:</h5></label>
-            <input class="form-control" type="text" name="note[title]" id="title">
+            <input class="form-control" type="text" name="note[title]" id="title" value="<%= @note.title %>">
             <br>
           </div>
           <div class="form-group">
             <label for="body"><h5>Body:</h5></label>
-            <input class="form-control" type="text" name="note[body]" id="body">
+            <input class="form-control" type="text" name="note[body]" id="body" value="<%= @note.body %>">
             <br>
           </div>
           <div class="form-group">
             <label for="priority_id"><h5>Priority:</h5></label>
-            <select class="form-control" name="note[priority_id]" id="priority_id">
+            <select class="form-control" name="note[priority_id]" id="priority_id" value="<%= @note.priority_id %>">
               <% @priorities.each do |priority| %>
                 <option value="<%= priority.id %>"><%= priority.status %></option>
               <% end %>

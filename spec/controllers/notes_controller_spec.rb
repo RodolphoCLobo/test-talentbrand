@@ -51,8 +51,8 @@ RSpec.describe NotesController, type: :controller do
   end
 
   describe 'GET /notes/:q' do
-    context 'when title from params exists.' do
-      it 'should return only notes with this title.' do
+    context 'when part of title from params exists.' do
+      it 'should return only notes with this part of title.' do
         q = 'title test'
         user = create(:random_user)
         priority = create(:priority)
@@ -64,7 +64,7 @@ RSpec.describe NotesController, type: :controller do
           end
           n += 1
         end
-        get :index, params: { q: q }
+        get :index, params: { q: 'tes' }
         result = JSON.parse(response.body, symbolize_names: true)
         expect(result.first[:title]).to eq(q)
         expect(result.count).to eq(1)

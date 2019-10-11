@@ -25,7 +25,7 @@ class NotesController < ApplicationController
 
   def index
     if params[:q].present?
-      @notes = Note.where(title: params[:q])
+      @notes = Note.where("title LIKE ?", "%#{params[:q]}%")
       @notes = Note.all if @notes.empty?
     else
       @notes = Note.all
